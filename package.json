@@ -1,0 +1,26 @@
+{
+	"name": "discord-count-bot",
+	"version": "1.0.0",
+	"description": "Discord count game channel bot.",
+	"main": "main.js",
+	"scripts": {
+		"start": "node main.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/steamedbuns/discord-count-bot.git"
+	},
+	"author": "steamedbuns",
+	"license": "GPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/steamedbuns/discord-count-bot/issues"
+	},
+	"homepage": "https://github.com/steamedbuns/discord-count-bot#readme",
+	"dependencies": {
+		"discord.js": "^12.3.1"
+	},
+	"devDependencies": {
+		"eslint": "^7.9.0"
+	}
+}

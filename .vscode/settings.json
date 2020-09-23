@@ -1,0 +1,10 @@
+{
+	"editor.detectIndentation": false,
+	"editor.renderIndentGuides": true,
+	"editor.tabSize": 3,
+	"editor.insertSpaces": false,
+	"editor.formatOnType": true,
+	"javascript.format.enable": true,
+	"javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+	"javascript.format.placeOpenBraceOnNewLineForFunctions": false
+}
