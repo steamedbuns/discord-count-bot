@@ -1,3 +1,6 @@
+# Sensitive Data
+secrets.json
+
 # Logs
 logs
 *.log
