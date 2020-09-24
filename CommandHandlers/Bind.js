@@ -5,12 +5,12 @@ module.exports = {
 	arg_high: 0,
 	execute(botContext, message, args) {
 		args;
-		if (botContext.channel) {
-			return message.channel.send(`Count Bot has already been bound #${message.channel.name}.`);
+		if (botContext.channel_id) {
+			return message.channel.send(`Count Bot has already been bound to <#${botContext.channel_id}>.`);
 		}
 		else {
-			botContext.channel = message.channel.name;
-			return message.channel.send(`Count Bot has been bound to #${message.channel.name}.`);
+			botContext.channel_id = message.channel.id;
+			return message.channel.send(`Count Bot has been bound to <#${botContext.channel_id}>.`);
 		}
 	},
 };
