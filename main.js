@@ -1,23 +1,39 @@
-const token = require('./secrets.json');
-const { prefix, commands } = require('./config.json');
+const BotContext = require('./BotContext.js');
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const { token } = require('./secrets.json');
+const { prefix, command_paths } = require('./config.json');
 
-const commandHandlers = [];
+// Instantiate discord client.
+const client = new Discord.Client();
+// Instantiate command collection.
+client.commands = new Discord.Collection();
+
+// Instantiate bot context object.
+const context = new BotContext(prefix);
+
 function onReady() {
-	commands.forEach((value) => {
-		const commandHandler = require(`${value.handler}`);
-		commandHandlers.push({ command: value.command, handler: commandHandler });
-	});
+	// Dynamically load commands.
+	for (const command_path of command_paths) {
+		const command = require(`${command_path}`);
+		client.commands.set(command.name, command);
+	}
 	console.log('Count Bot online.');
 }
 
 function onMessage(message) {
-	if (message.author.id === client.user.id || !message.content.startsWith(prefix)) {
-		console.log('Not a valid command.');
-		return;
+	if (message.author.bot || !message.content.startsWith(prefix)) return;
+
+	const args = message.content.slice(prefix.length).trim().split(' ');
+	const command = args.shift().toLowerCase();
+
+	if (!client.commands.has(command)) return;
+	try {
+		client.commands.get(command).execute(context, message, args);
 	}
-	console.log(message.content);
+	catch (error) {
+		console.error(error);
+		message.reply('There was an error trying to execute that command!');
+	}
 }
 
 client.once('ready', onReady);

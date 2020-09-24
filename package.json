@@ -2,7 +2,7 @@
 	"name": "discord-count-bot",
 	"version": "1.0.0",
 	"description": "Discord count game channel bot.",
-	"main": "main.js",
+	"main": "Main.js",
 	"scripts": {
 		"start": "node .",
 		"test": "echo \"Error: no test specified\" && exit 1"
