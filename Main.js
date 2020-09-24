@@ -21,7 +21,6 @@ function onReady() {
 }
 
 function onMessage(message) {
-	console.log(message.content);
 	if (message.author.bot || !message.content.startsWith(prefix)) return;
 
 	const args = message.content.slice(prefix.length).trim().split(' ');
@@ -31,7 +30,7 @@ function onMessage(message) {
 
 	const command = client.commands.get(commandName);
 
-	if (args.length >= command.arg_low && args.length <= command.arg_high) {
+	if (args.length < command.arg_low && args.length > command.arg_high) {
 		return message.channel.send(`You didn't provide the correct arguments, ${message.author}.`);
 	}
 
