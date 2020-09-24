@@ -1,18 +1,45 @@
+const { prefix, command_paths } = require('./config.json');
+
 class BotContext {
-	constructor(prefix) {
-		this.m_channel_id = '';
-		this.m_prefix = prefix;
+	constructor() {
+		this.m_state = { channel_id: '', prefix: prefix };
+		this.commands = new Map();
 	}
 
-	get channel_id() {
-		return this.m_channel_id;
-	}
-	set channel_id(channel_id) {
-		this.m_channel_id = channel_id;
+	ready() {
+		// Dynamically load commands.
+		for (const command_path of command_paths) {
+			const command = require(`${command_path}`);
+			this.commands.set(command.name, command);
+		}
+		console.log('Count Bot online.');
 	}
 
-	get prefix() {
-		return this.m_prefix;
+	onMessage(message) {
+		// Check message from self and irrelevant messages.
+		if (message.author.bot || !message.content.startsWith(prefix)) return;
+
+		// Prepare message for consumption.
+		const args = message.content.slice(prefix.length).trim().split(' ');
+		const commandName = args.shift().toLowerCase();
+
+		if (!this.commands.has(commandName)) return;
+
+		const command = this.commands.get(commandName);
+
+		// Argument check.
+		if (args.length < command.arg_low && args.length > command.arg_high) {
+			return message.channel.send(`You didn't provide the correct arguments, ${message.author}.`);
+		}
+
+		// Execute command.
+		try {
+			command.execute(this.m_state, message, args);
+		}
+		catch (error) {
+			console.error(error);
+			message.reply('There was an error trying to execute that command!');
+		}
 	}
 }
 
