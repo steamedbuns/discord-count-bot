@@ -2,17 +2,14 @@ const BotState = require('./BotState.js');
 const { prefix, command_paths } = require('./config.json');
 
 class BotContext {
-	constructor() {
-		this.m_state = new BotState(prefix);
-		this.commands = new Map();
-	}
-
 	ready() {
 		// Dynamically load commands.
+		this.commands = new Map();
 		for (const command_path of command_paths) {
 			const command = require(`${command_path}`);
 			this.commands.set(command.name, command);
 		}
+		this.m_state = new BotState(prefix);
 		console.log('Count Bot online.');
 	}
 
