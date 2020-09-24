@@ -1,13 +1,7 @@
 {
 	"prefix": "!count",
-	"commands": [
-		{
-			"command": "bind",
-			"handler": "./command_handlers/bind.js"
-		},
-		{
-			"command": "unbind",
-			"handler": "./command_handlers/unbind.js"
-		}
+	"command_paths": [
+		"./CommandHandlers/Bind.js",
+		"./CommandHandlers/Unbind.js"
 	]
 }
