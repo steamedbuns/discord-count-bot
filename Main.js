@@ -21,14 +21,22 @@ function onReady() {
 }
 
 function onMessage(message) {
+	console.log(message.content);
 	if (message.author.bot || !message.content.startsWith(prefix)) return;
 
 	const args = message.content.slice(prefix.length).trim().split(' ');
-	const command = args.shift().toLowerCase();
+	const commandName = args.shift().toLowerCase();
 
-	if (!client.commands.has(command)) return;
+	if (!client.commands.has(commandName)) return;
+
+	const command = client.commands.get(commandName);
+
+	if (args.length >= command.arg_low && args.length <= command.arg_high) {
+		return message.channel.send(`You didn't provide the correct arguments, ${message.author}.`);
+	}
+
 	try {
-		client.commands.get(command).execute(context, message, args);
+		command.execute(context, message, args);
 	}
 	catch (error) {
 		console.error(error);
