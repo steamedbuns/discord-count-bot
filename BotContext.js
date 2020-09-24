@@ -1,8 +1,9 @@
+const BotState = require('./BotState.js');
 const { prefix, command_paths } = require('./config.json');
 
 class BotContext {
 	constructor() {
-		this.m_state = { channel_id: '', prefix: prefix };
+		this.m_state = new BotState(prefix);
 		this.commands = new Map();
 	}
 
