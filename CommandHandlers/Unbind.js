@@ -6,16 +6,16 @@ module.exports = {
 	execute(state, message, args) {
 		args;
 		if (!state.channel_id) {
-			return message.channel.send('Count Bot is not bound to any channel.');
+			return message.channel.send(':x: Count Bot is not bound to any channel.');
 		}
 		if (args[0] === '-f' || message.channel.id === state.channel_id) {
 			const chan_id = state.channel_id;
 			state.channel_id = '';
-			message.channel.send(`Count Bot has been unbound from <#${chan_id}>.`);
+			message.channel.send(`:white_check_mark: Count Bot has been unbound from <#${chan_id}>.`);
 		}
 		else {
 			message.channel.send(
-				`The unbind command must be run from <#${state.channel_id}>
+				`:x: The unbind command must be run from <#${state.channel_id}>
 To force an unbind, use ${state.prefix} unbind -f`);
 		}
 	},

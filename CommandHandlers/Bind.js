@@ -6,11 +6,11 @@ module.exports = {
 	execute(state, message, args) {
 		args;
 		if (state.channel_id) {
-			return message.channel.send(`Count Bot has already been bound to <#${state.channel_id}>.`);
+			return message.channel.send(`:x: Count Bot has already been bound to <#${state.channel_id}>.`);
 		}
 		else {
 			state.channel_id = message.channel.id;
-			return message.channel.send(`Count Bot has been bound to <#${state.channel_id}>.`);
+			return message.channel.send(`:white_check_mark: Count Bot has been bound to <#${state.channel_id}>.`);
 		}
 	},
 };
